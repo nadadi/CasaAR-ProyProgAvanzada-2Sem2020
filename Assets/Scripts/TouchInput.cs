@@ -5,6 +5,9 @@ using UnityEngine;
 public class TouchInput : MonoBehaviour
 {
     #region CLASS_VARIABLES
+    public GameObject plane;
+    [SerializeField]
+    private GameObject[] planes;
     private Touch touch;    
     private bool touchingScreen;
     #endregion
@@ -68,16 +71,14 @@ public class TouchInput : MonoBehaviour
                 //Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red);
                 if(hit.collider != null)
                 {
-                    GameObject gameObjectOfHit = hit.collider.gameObject;
-                    gameObjectOfHit.transform.localScale += new Vector3(0.001f, 0.001f, 0.001f);
-                    print("Hit something!");
+                    GameObject cubeGameobject = hit.collider.gameObject;
+                    Cube cubeScript = cubeGameobject.GetComponent<Cube>();
+                    cubeScript.Touch();
+                    GameObject planeOfCube = cubeScript.GetMyPlane();
+                    planeOfCube.SetActive(false);
                 }
             }
-        }else
-        {
-            print("Rayo nulo");
         }
-
         //}
     }
 }
